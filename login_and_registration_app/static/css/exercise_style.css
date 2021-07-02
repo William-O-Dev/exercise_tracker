@@ -1,0 +1,59 @@
+* {
+    padding: 0px;
+    margin: 0px;
+    font-family: sans-serif;
+}
+
+#header {
+    padding: 25px;
+    display: flex;
+}
+
+.links {
+    margin: 10px 0px 0px 550px;
+}
+
+#content {
+    display: flex;
+    padding: 50px;
+}
+
+#content h1 {
+    text-align: center;
+}
+
+.show_exercises {
+    width: 400px;
+    margin-right: 400px;
+}
+
+.single_exercise {
+    border: 2px solid black;
+    padding: 5px;
+    margin: 20px 0px;
+}
+
+#edit_user {
+    width: 500px;
+    margin-left: 50px;
+}
+
+#users_exercises {
+    width: 500px;
+    margin-left: 40px;
+}
+
+.delete {
+    margin-right: 150px;
+}
+
+.exercise_list {
+    float: left;
+    width: 45%;
+    margin-right: 75px;
+}
+
+.show_workouts {
+    width: 400px;
+    margin-right: 400px;
+}

@@ -1,0 +1,33 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    font-family: sans-serif;
+}
+
+#container {
+    margin: 25px;
+    display: flex;
+}
+
+#registration {
+    float: left;
+    width: 45%;
+    margin-right: 75px;
+}
+
+#login {
+    width: 45%;
+}
+
+h1 {
+    margin-bottom: 25px;
+}
+
+p {
+    font-size: smaller;
+    margin-top: -25px;
+}
+
+a {
+    margin-left: 500px;
+}

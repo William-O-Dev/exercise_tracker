@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercise Tracker</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+        integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/exercise_style.css' %}">
+</head>
+
+<body>
+    <div id='container'>
+        <div id='header'>
+            <h2>Welcome, {{ request.session.user_first_name }} {{ request.session.user_last_name }}!</h2>
+            <div class='links'>
+                <a href="/workouts">Create Workout</a> |
+                <a href="/my_account/{{request.session.user_id}}">Edit Account</a> |
+                <a class="btn btn-danger" role="button" href='/users/logout'>Log Out</a>
+            </div>
+        </div>
+        <div id='content'>
+            <div class='show_exercises'>
+                <h1>Exercise Database</h1>
+                {% for exercise in exercises %}
+                <div class='single_exercise'>
+                    <p class='the_exercise'>
+                        Exercise: {{exercise.name}}<br>
+                        Muscle Group: {{exercise.muscle_group}} <br>
+                        Equipment Used: {{exercise.equipment}}</p>
+                    <p class='the_user'>Created by <a href='/profile/{{exercise.user_id}}'>{{exercise.user.first_name}}
+                            {{ exercise.user.last_name }}</a></p>
+                    <p>{{exercise.likes.count}} people like this</p>
+                    {% if exercise.user.id == request.session.user_id %}
+                    <a href="/delete_exercise/{{exercise.id}}">Delete</a>
+                    {% endif %}
+                    <a class="btn btn-primary" role="button" href='/like/{{exercise.id}}'>Like!</a>
+                </div>
+                {% endfor %}
+            </div>
+            <div class='add_exercises'>
+                <h1>Add an exercise!</h1>
+                {% if messages %}
+                {% for message in messages %}
+                <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+                {% endfor %}
+                {% endif %}
+                <form action='/add_exercises' method="POST">
+                    {% csrf_token %}
+                    <label class='label' for="name">Name</label><br>
+                    <input type='text' name='name' id='name' class='form-control'>
+                    <label class='label' for='muscle_group'>Muscle Group</label><br>
+                    <select name="muscle_group" id="muscle_group" class='form-control'>
+                        <option value="">Select Target Muscle Group</option>
+                        <option value="Abdominals">Abdominals</option>
+                        <option value="Abductors">Abductors</option>
+                        <option value="Adductors">Adductors</option>
+                        <option value="Biceps">Biceps</option>
+                        <option value="Calves">Calves</option>
+                        <option value="Chest">Chest</option>
+                        <option value="Forearms">Forearms</option>
+                        <option value="Glutes">Glutes</option>
+                        <option value="Hamstrings">Hamstrings</option>
+                        <option value="Lats">Lats</option>
+                        <option value="Lower_back">Lower Back</option>
+                        <option value="Middle_back">Middle Back</option>
+                        <option value="Quadriceps">Quadriceps</option>
+                        <option value="Shoulders">Shoulders</option>
+                        <option value="Traps">Traps</option>
+                        <option value="Triceps">Triceps</option>
+                    </select>
+                    <label class='label' for='equipment'>Equipment</label><br>
+                    <select name="equipment" id="equipment" class='form-control'>
+                        <option value="">Select Equipment Used</option>
+                        <option value="Dumbbell">Dumbbell</option>
+                        <option value="Barbell">Barbell</option>
+                        <option value="Other">Other</option>
+                        <option value="Cable">Cable</option>
+                        <option value="Body_only">Body Only</option>
+                        <option value="Machine">Machine</option>
+                        <option value="Exercise_ball">Exercise Ball</option>
+                        <option value="None">None</option>
+                        <option value="Bands">Bands</option>
+                        <option value="Kettlebells">Kettlebells</option>
+                        <option value="EZ_curl_bar">EZ Curl Bar</option>
+                        <option value="V_bar">V Bar Attachment</option>
+                        <option value="Rope">Rope Attachment</option>
+                        <option value="Foam_roller">Foam Roller</option>
+                        <option value="Medicine_ball">Medicine Ball</option>
+                    </select>
+                    <button class="btn btn-primary">Add</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
